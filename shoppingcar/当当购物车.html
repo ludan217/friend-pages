@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>当当购物车</title>
+		<link rel="stylesheet" type="text/css" href="css/shoppingcar.css" />
+	</head>
+	<body>
+
+		<!-- 容器 -->
+		<div class="container">
+			<!-- 上部分 -->
+			<div class="logo">
+				<img src="img/dd_logo.jpg" alt="">
+				<div class="close">关闭</div>
+			</div>
+			<!-- 上部分结束 -->
+
+
+			<!-- 中间部分 -->
+			<div class="center">
+
+				<!-- 表头 -->
+				<div class="title">
+					<div class="col-1"><input type="checkbox" name="selectall" id="upcheck" checked="checked">&nbsp;&nbsp;全选</div>
+					<div class="col-1">商品信息</div>
+					<div class="col-2">单价（元）</div>
+					<div class="col-2">数量</div>
+					<div class="col-2">金额（元）</div>
+					<div>操作</div>
+
+				</div>
+				<!-- 表头结束 -->
+
+				<!-- 店铺 -->
+				<div class="store">
+					<div class="col-1">
+						<input type="checkbox" name="selectall" id="procheck0" checked="checked">
+						<img src="img/store.png" alt="">
+					</div>
+				</div>
+				<!-- 店铺结束 -->
+
+				<!-- 商品 -->
+				<div class="product-list">
+					<!-- 白岩松 -->
+					<div class="product">
+						<div class="col-1">
+							<input type="checkbox" name="pro" id="procheck1" checked="checked">
+							<img src="img/dog.jpg" alt="">
+						</div>
+						<div class="col-1">白岩松：白说</div>
+						<div class="col-2">￥&nbsp;<span class="price">21.90</span></div>
+						<div class="col-2">
+							<div class="num">
+								<button type="button" class="sub" onclick="subProduct(0)">-</button>
+								<input type="text" name="p" id="proinput2" value="1">
+								<button type="button" class="add" onclick="addProduct(0)">+</button>
+							</div>
+						</div>
+						<div class="col-2">￥<span class="proTotalPrice">21.90</span></div>
+						<div class="manage">
+							<a href="#"><span class="favor">移入收藏</span></a>
+							<a href="#"><span onclick="deleteProduct(0)">删除</span></a>
+							
+						</div>
+					</div>
+
+					<!-- 分割线 -->
+					<!-- <div class="line"></div> -->
+
+					<!-- 岛上书店 -->
+					<div class="product">
+						<div class="col-1">
+							<input type="checkbox" name="pro" id="procheck2" checked="checked">
+							<img src="img/mai.jpg" alt="">
+						</div>
+						<div class="col-1">岛上书店</div>
+						<div class="col-2">￥&nbsp;<span class="price">24.00</span></div>
+						<div class="col-2">
+							<div class="num">
+								<button type="button" class="sub" onclick="subProduct(1)">-</button>
+								<input type="text" name="p" id="proinput2" value="1">
+								<button type="button" class="add" onclick="addProduct(1)">+</button>
+							</div>
+						</div>
+						<div class="col-2">￥<span class="proTotalPrice">24.00</span></div>
+						<div class="manage">
+							<a href="#"><span class="favor">移入收藏</span></a>
+							<a href="#"><span onclick="deleteProduct(1)">删除</span></a>
+						</div>
+					</div>
+
+				</div>
+				<!-- 商品结束 -->
+
+			</div>
+			<!-- 中间部分结束 -->
+
+			<!-- 下部分 -->
+			<div class="count">
+				<div class="left">
+					<div>
+						<input type="checkbox" name="" id="downcheck" value="" checked="checked"/>&nbsp;全选
+						<div class="show-box"></div>
+					</div>
+					<div>批量删除</div>
+					<div>
+						<span>已选择</span>
+						<span class="red">2</span>
+						<span>件商品</span>
+					</div>
+				</div>
+
+				<div class="right">
+					<div class="mid"></div>
+					<div class="count-price" onclick="account()">结算</div>
+					<div class="count-detail">
+						<p>总计（不含运费）：<span class="red total">￥<span id="total">45.9</span></span></p>
+						<p>已节省：￥0.00</p>
+					</div>
+
+				</div>
+			</div>
+			<!-- 下部分结束 -->
+
+		</div>
+		<!-- 容器结束 -->
+
+		<!-- 显示结算信息 -->
+		<div class="account"></div>
+
+
+
+		<!-- js代码 -->
+		<script type="text/javascript">
+		
+			//1、	点击“关闭”按钮时，关闭当前页面
+			var closeBtn = document.querySelector('.close');
+			closeBtn.onclick = function() {
+
+				if (navigator.userAgent.indexOf("Firefox") != -1 || navigator.userAgent.indexOf("Chrome") != -1) {
+					window.location.href = "about:blank";
+					window.close();
+				} else {
+					window.opener = null;
+					window.open("", "_self");
+					window.close();
+				}
+
+			}
+
+			//2、	单击“移入收藏”，弹出收藏提示
+			var favors = document.querySelectorAll('.favor');
+			for (var i = 0; i < favors.length; i++) {
+				favors[i].onclick = function() {
+					alert('已将此商品添加至收藏！');
+				}
+			}
+
+			//3、	单击“-”按钮时，对应商品数量减一，商品数量为0时，弹出提示
+			//5、	单击“-”按钮式，对应商品的金额自动计算并显示，总计（不含运费）也进行自动计算并显示
+
+			function subProduct(num) {
+				//获取数量
+				var count = parseInt(document.getElementsByName("p")[num].value);
+				console.log(document.getElementsByName("p")[num]);
+				//先判断，再决定是否增加数量
+				if (count <= 0) {
+					alert("别再增减了，再减就亏了！");
+				} else {
+					count -= 1;
+					//修改数量
+					document.getElementsByName("p")[num].setAttribute("value", count);
+					//获取单价
+					var price = document.getElementsByClassName("price")[num].innerText;
+					//设置金额
+					document.getElementsByClassName("proTotalPrice")[num].innerHTML = (count * price).toFixed(2);
+					//计算总计（两种商品的总消费额）
+					var total = 0;
+					for (var i = 0; i < document.getElementsByClassName("proTotalPrice").length; i++) {
+						total += parseFloat(document.getElementsByClassName("proTotalPrice")[i].innerHTML)
+					}
+					document.getElementById("total").innerHTML = (total).toFixed(2);
+				}
+			}
+
+			//4、	单击“+”按钮时，对应商品数量加一，商品数量为10时，弹出限购提示
+			//6、	单击“+”按钮式，对应商品的金额自动计算并显示，总计（不含运费）也进行自动计算并显示
+			function addProduct(num) {
+				//获取数量
+				var count = parseInt(document.getElementsByName("p")[num].value);
+				//先判断，再决定是否增加数量
+				if (count >= 10) {
+					alert("别再增加了，该商品限量购买！");
+				} else {
+					count += 1;
+					//修改数量
+					document.getElementsByName("p")[num].setAttribute("value", count);
+					//获取单价
+					var price = document.getElementsByClassName("price")[num].innerText;
+					//设置金额
+					document.getElementsByClassName("proTotalPrice")[num].innerHTML = (count * price).toFixed(2);
+					//计算总计（两种商品的总消费额）
+					var total = 0;
+					for (var i = 0; i < document.getElementsByClassName("proTotalPrice").length; i++) {
+						total += parseFloat(document.getElementsByClassName("proTotalPrice")[i].innerHTML)
+					}
+					document.getElementById("total").innerHTML = (total).toFixed(2);
+				}
+			}
+
+			//7、	单击“结算”按钮时，使用节点的层次关系访问节点，在页面下方显示各个商品的详细信息（名称、单价、数量、金额）和所有商品的总计价格
+			function account() {
+
+				if (document.getElementsByClassName("price").length < 1) {
+					alert('请在购物车至少添加一个商品！');
+					return;
+				}
+
+				//商品序列
+				var name = [];
+				//商品单价
+				var price = [];
+				//商品数量
+				var num = [];
+				//商品金额
+				var proPrice = [];
+
+				for (var i = 0; i < document.getElementsByClassName("price").length; i++) {
+					name.push('商品' + (i + 1));
+					price.push(document.getElementsByClassName("price")[i].innerText);
+					num.push(document.getElementsByName("p")[i].value);
+					proPrice.push(parseFloat(document.getElementsByClassName("proTotalPrice")[i].innerHTML))
+				}
+
+				//获取总计
+				var account = document.getElementById("total").innerHTML;
+
+				var s1 = "您本次购买的商品信息如下：<br>";
+				var s2 = '';
+				for (var i = 0; i < document.getElementsByClassName("price").length; i++) {
+					s2 += name[i] + "，单价：" + price[i] + "元，数量为" + num[i] + "个，金额为" + proPrice[i] + "元<br>";
+				}
+				var s3 = " 总计花费" + account + "元";
+				document.getElementsByClassName("account")[0].innerHTML = s1 + s2 + s3;
+			}
+			
+
+			//8、	单击“删除”时，删除与该商品有关的一切信息
+			function deleteProduct(num) {
+				//获取商品
+				var productList = document.getElementsByClassName('product-list')[0];
+				var product = document.getElementsByClassName("product")[num];
+
+				//全删了不显示店铺
+				if (document.getElementsByClassName("product").length == 1) {
+					var center = document.getElementsByClassName('center')[0];
+					console.log(center);
+					var store = document.getElementsByClassName('store')[0];
+					console.log(store);
+					center.removeChild(store);
+				}
+
+				//减掉总价
+				var total = parseFloat(document.getElementById("total").innerHTML);
+				total -= parseFloat(document.getElementsByClassName("proTotalPrice")[num].innerHTML);
+				document.getElementById("total").innerHTML = total.toFixed(2);
+
+				//删除商品
+				productList.removeChild(product);
+			}
+		</script>
+
+
+	</body>
+</html>

@@ -1,0 +1,296 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+	color: #666666;
+}
+
+.red {
+	color: red;
+}
+
+input[type=checkbox] {
+	cursor: pointer;
+	position: relative;
+	width: 15px;
+	height: 15px;
+	font-size: 14px;
+}
+
+input[type=checkbox]::after {
+	position: absolute;
+	top: 0;
+	color: #000;
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+	visibility: visible;
+	padding-left: 0px;
+	text-align: center;
+	content: ' ';
+	border-radius: 3px
+}
+
+input[type=checkbox]:checked::after {
+	content: "✓";
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #ff366f;
+}
+
+/* 容器 */
+.container {
+	width: 1100px;
+	margin: 50px auto;
+}
+
+/* 上部分 */
+.container .logo {
+	width: 96%;
+	height: 80px;
+	border-bottom: 5px solid #f1f1f1;
+	margin: 20px;
+}
+
+.container .logo img {
+	width: 290px;
+	height: 60px;
+}
+
+.container .logo .close {
+	width: 80px;
+	height: 38px;
+	background-color: red;
+	color: white;
+	border-radius: 12px;
+	font-size: 19px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 38px;
+	float: right;
+}
+
+/* 中间部分表头 */
+.container .center .title {
+	width: 100%;
+	height: 20px;
+	margin: 20px;
+}
+
+.container .center .title div {
+	float: left;
+	color: #808080;
+}
+
+
+.col-1 {
+	width: 20%;
+	display: flex;
+	align-items: Center;
+}
+
+.col-2 {
+	width: 17%;
+	display: flex;
+	align-items: Center;
+}
+
+/* 中间部分商店 */
+.container .center .store {
+	width: 96%;
+	height: 30px;
+	margin: 20px;
+}
+
+/* 中间部分商品 */
+.container .center .product-list {
+	width: 96%;
+	border: 1px solid #e6e6e6;
+	margin: 20px;
+	box-shadow: 2px 2px 2px #f0f0f0;
+	position: relative;
+}
+
+.container .center .product-list .product {
+	width: 100%;
+	height: 120px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+
+.container .center .product-list .product img {
+	width: 80px;
+	height: 100px;
+	padding-left: 10px;
+	padding-top: 15px;
+}
+
+.line {
+	width: 85%;
+	height: 1px;
+	border-bottom: 1px solid #e6e6e6;
+	position: absolute;
+	top: 50%;
+	right: 0;
+}
+
+.container .center .product-list .product div {
+	float: left;
+	height: 85px;
+
+}
+
+.container .center .product-list .product div:nth-child(1) {
+	padding-left: 20px;
+}
+
+.container .center .product-list .product .num {
+	display: flex;
+	align-items: Center;
+}
+
+.container .center .product-list .product .num button {
+	width: 20%;
+	height: 30px;
+	border: 1px solid #666666;
+	float: left;
+}
+
+.container .center .product-list .product .num input {
+	width: 35%;
+	height: 30px;
+	outline: none;
+	border: 1px solid #666666;
+	border-left: transparent;
+	border-right: transparent;
+	float: left;
+	text-align: center;
+}
+
+
+.container .center .product-list .product .manage {
+	height: 100%;
+}
+
+.container .center .product-list .product .manage a {
+	width: 100%;
+	height: 25px;
+	margin-top: 10px;
+	display: flex;
+	align-items: Center;
+	justify-content: center;
+}
+
+/* 结算部分 */
+.container .count {
+	width: 1060px;
+	height: 80px;
+	margin: 20px 20px 0 15px;
+	position: relative;
+}
+
+.container .count .left {
+	width: 480px;
+	height: 70px;
+	background-image: linear-gradient(to right, rgba(249, 249, 249, 1.0), rgba(243, 243, 243, 1.0));
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+
+.container .count .left div {
+	float: left;
+	color: #666666;
+	line-height: 70px;
+}
+
+.container .count .left div:nth-child(1) {
+	width: 20%;
+	height: 100%;
+	text-align: left;
+}
+
+.container .count .left div:nth-child(2) {
+	width: 30%;
+	height: 100%;
+	text-align: center;
+}
+
+.container .count .left div:nth-child(3) {
+	width: 50%;
+	height: 100%;
+	text-align: center;
+}
+
+.container .count .mid {
+	width: 0;
+	height: 0;
+	border-left: 24px solid #c5c5c5;
+	border-top: 5px solid #C5C5C5;
+	border-bottom: 5px solid transparent;
+	border-right: 24px solid transparent;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+}
+
+.container .count .right {
+	width: 630px;
+	height: 70px;
+	background-image: linear-gradient(to right, rgba(235, 236, 235, 1.0), rgba(243, 243, 243, 1.0));
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.container .count .right .count-price {
+	width: 100px;
+	height: 40px;
+	background-color: red;
+	color: white;
+	text-align: center;
+	line-height: 40px;
+	font-size: 18px;
+	font-weight: 700;
+	position: absolute;
+	right: 20px;
+	top: 50%;
+	margin-top: -20px;
+}
+
+.container .logo .close:hover,
+.container .count .right .count-price:hover {
+	cursor: pointer;
+}
+
+.container .count .right .count-detail {
+	width: 250px;
+	height: 70px;
+	position: absolute;
+	right: 180px;
+	text-align: right;
+}
+
+.container .count .right .count-detail p {
+	color: #666666;
+	font-size: 14px;
+	height: 35px;
+	line-height: 35px;
+}
+
+.container .count .right .total {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.account {
+	width: 1100px;
+	margin: 50px auto;
+}
